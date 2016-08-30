@@ -18,14 +18,14 @@ public class StreamsImpl<T> {
     }
 
     public StreamsImpl<T> filter(Predicate<? super T> predicate) {
-        Collection<T> tempList = new ArrayList<>();
-        tempList.addAll(this.storedData);
-        for (T item : this.storedData) {
-            if (!predicate.test(item)) tempList.remove(item);
-        }
-        this.storedData.clear();
-        this.storedData.addAll(tempList);
-        return this;
+            Collection<T> tempList = new ArrayList<>();
+            tempList.addAll(this.storedData);
+            for (T item : this.storedData) {
+                if (!predicate.test(item)) tempList.remove(item);
+            }
+            this.storedData.clear();
+            this.storedData.addAll(tempList);
+            return this;
     }
 
     public StreamsImpl<T> testOut() {
@@ -49,11 +49,17 @@ public class StreamsImpl<T> {
         return resultMap;
     }
 
-    private T findItem(Object seachItem) {
+    public T findItem(Object searchItem) {
         T findObject = null;
         for (T item : this.storedData)
-            if (Objects.equals(item, seachItem))
+            if (Objects.equals(item, searchItem))
                 findObject = item;
         return findObject;
+    }
+
+    public List<T> toList() {
+        List<T> resultList = new ArrayList<>();
+        for (T item : this.storedData) resultList.add(item);
+        return resultList;
     }
 }
